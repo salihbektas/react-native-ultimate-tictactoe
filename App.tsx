@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Dimensions,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -9,12 +10,26 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import Row from './src/components/Row';
+
+const {width} = Dimensions.get('screen');
 
 function App(): JSX.Element {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'grey'}}>
       <StatusBar barStyle={'dark-content'} />
-      <Text>Init</Text>
+      <View
+        style={{
+          width: width,
+          aspectRatio: 1,
+          backgroundColor: 'black',
+          marginTop: 'auto',
+          justifyContent: 'space-between',
+        }}>
+        <Row />
+        <Row />
+        <Row />
+      </View>
     </SafeAreaView>
   );
 }
