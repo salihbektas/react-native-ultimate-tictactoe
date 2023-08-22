@@ -1,12 +1,12 @@
 import {StyleSheet, View} from 'react-native';
 import Subrow from './Subrow';
 
-export default function Subboard() {
+export default function Subboard({subBoardOrder}: {subBoardOrder: number}) {
   return (
     <View style={styles.board}>
-      <Subrow />
-      <Subrow />
-      <Subrow />
+      <Subrow subBoardOrder={subBoardOrder} subRowOrderOrder={0} />
+      <Subrow subBoardOrder={subBoardOrder} subRowOrderOrder={1} />
+      <Subrow subBoardOrder={subBoardOrder} subRowOrderOrder={2} />
     </View>
   );
 }

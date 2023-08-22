@@ -20,9 +20,9 @@ function App(): JSX.Element {
     <SafeAreaView style={styles.main}>
       <StatusBar barStyle={'dark-content'} />
       <View style={styles.board}>
-        <Row />
-        <Row />
-        <Row />
+        <Row rowOrder={0} />
+        <Row rowOrder={1} />
+        <Row rowOrder={2} />
       </View>
     </SafeAreaView>
   );

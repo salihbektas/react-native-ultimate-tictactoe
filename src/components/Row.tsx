@@ -1,12 +1,12 @@
 import {StyleSheet, View} from 'react-native';
 import Subboard from './Subboard';
 
-export default function Row() {
+export default function Row({rowOrder}: {rowOrder: number}) {
   return (
     <View style={styles.row}>
-      <Subboard />
-      <Subboard />
-      <Subboard />
+      <Subboard subBoardOrder={3 * rowOrder} />
+      <Subboard subBoardOrder={3 * rowOrder + 1} />
+      <Subboard subBoardOrder={3 * rowOrder + 2} />
     </View>
   );
 }
