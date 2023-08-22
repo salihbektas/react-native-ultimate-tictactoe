@@ -12,9 +12,7 @@ const initialBoard: UltimateBoard = [
   [['', '', '', '', '', '', '', '', ''], ''],
 ];
 
-let initialTurn: TileValue = 'X';
-
-const init: Initial = {board: initialBoard, turn: initialTurn};
+const init: Initial = {board: initialBoard, turn: 'X', winner: ''};
 
 export const store = atom(init);
 
@@ -43,4 +41,9 @@ type UltimateBoard = [
   [SubBoard, TileValue],
   [SubBoard, TileValue],
 ];
-type Initial = {board: UltimateBoard; turn: TileValue};
+
+export type Initial = {
+  board: UltimateBoard;
+  turn: TileValue;
+  winner: TileValue;
+};
