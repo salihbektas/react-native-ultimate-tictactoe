@@ -30,7 +30,7 @@ type SubBoard = [
   TileValue,
 ];
 
-type UltimateBoard = [
+export type UltimateBoard = [
   [SubBoard, TileValue],
   [SubBoard, TileValue],
   [SubBoard, TileValue],

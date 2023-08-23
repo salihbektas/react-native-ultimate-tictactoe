@@ -2,6 +2,8 @@ import React from 'react';
 
 import {
   Dimensions,
+  Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -13,14 +15,38 @@ import {
 import Row from './src/components/Row';
 import colors from './src/colors';
 import Infotext from './src/components/Infotext';
+import {useAtom} from 'jotai';
+import {Initial, store, UltimateBoard} from './src/store';
 
 const {width} = Dimensions.get('screen');
 
 function App(): JSX.Element {
+  const [data, setData] = useAtom(store);
+
+  function reset() {
+    const initialBoard: UltimateBoard = [
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+      [['', '', '', '', '', '', '', '', ''], ''],
+    ];
+
+    const init: Initial = {board: initialBoard, turn: 'X', winner: ''};
+    setData(init);
+  }
+
   return (
     <SafeAreaView style={styles.main}>
       <StatusBar barStyle={'dark-content'} />
       <View style={styles.topside}>
+        <Pressable onPress={reset}>
+          <Image source={require('./assets/reset.png')} style={styles.reset} />
+        </Pressable>
         <Infotext />
       </View>
       <View style={styles.board}>
@@ -39,6 +65,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
+  },
+
+  reset: {
+    tintColor: colors.white,
+    resizeMode: 'contain',
+    height: 45,
+    aspectRatio: 1,
   },
 
   board: {
