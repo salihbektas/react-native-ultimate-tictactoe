@@ -1,7 +1,7 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import colors from '../colors';
-import {useAtom} from 'jotai/react';
-import {Initial, store} from '../store';
+import {Pressable, StyleSheet, Text, View} from 'react-native'
+import colors from '../colors'
+import {useAtom} from 'jotai/react'
+import {Initial, store} from '../store'
 
 const lines = [
   [0, 1, 2],
@@ -11,50 +11,46 @@ const lines = [
   [1, 4, 7],
   [2, 5, 8],
   [0, 4, 8],
-  [2, 4, 6],
-];
+  [2, 4, 6]
+]
 
 export default function Subrow({
   subBoardOrder,
-  subRowOrderOrder,
+  subRowOrderOrder
 }: {
-  subBoardOrder: number;
-  subRowOrderOrder: number;
+  subBoardOrder: number
+  subRowOrderOrder: number
 }) {
-  const [data, setData] = useAtom(store);
+  const [data, setData] = useAtom(store)
 
-  let first = data.board[subBoardOrder][0][subRowOrderOrder * 3];
-  let second = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 1];
-  let third = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 2];
+  let first = data.board[subBoardOrder][0][subRowOrderOrder * 3]
+  let second = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 1]
+  let third = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 2]
 
   function onPress(tileOrder: number) {
     if (
       data.board[subBoardOrder][0][subRowOrderOrder * 3 + tileOrder] !== '' ||
       data.board[subBoardOrder][1] !== '' ||
       data.winner !== ''
-    )
-      return;
+    ) {
+      return
+    }
 
-    const newData = {...data};
-    newData.board[subBoardOrder][0][subRowOrderOrder * 3 + tileOrder] =
-      data.turn;
-    newData.turn = data.turn === 'X' ? 'O' : 'X';
+    const newData = {...data}
+    newData.board[subBoardOrder][0][subRowOrderOrder * 3 + tileOrder] = data.turn
+    newData.turn = data.turn === 'X' ? 'O' : 'X'
 
-    calculateWinner(newData);
+    calculateWinner(newData)
   }
 
   function calculateWinner(newData: Initial) {
     for (let i = 0; i < 9; ++i) {
-      const [subboard, subWinner] = newData.board[i];
+      const [subboard, subWinner] = newData.board[i]
 
       if (!subWinner) {
         for (let [a, b, c] of lines) {
-          if (
-            subboard[a] &&
-            subboard[a] === subboard[b] &&
-            subboard[a] === subboard[c]
-          )
-            newData.board[i][1] = subboard[a];
+          if (subboard[a] && subboard[a] === subboard[b] && subboard[a] === subboard[c])
+            newData.board[i][1] = subboard[a]
         }
       }
     }
@@ -65,43 +61,31 @@ export default function Subrow({
         newData.board[a][1] === newData.board[b][1] &&
         newData.board[a][1] === newData.board[c][1]
       )
-        newData.winner = newData.board[a][1];
+        newData.winner = newData.board[a][1]
     }
 
-    setData(newData);
+    setData(newData)
   }
 
   return (
     <View style={styles.row}>
       <Pressable onPress={() => onPress(0)} style={styles.cell}>
-        <Text
-          style={[
-            styles.mark,
-            {color: first === 'X' ? colors.blue : colors.red},
-          ]}>
+        <Text style={[styles.mark, {color: first === 'X' ? colors.blue : colors.red}]}>
           {first}
         </Text>
       </Pressable>
       <Pressable onPress={() => onPress(1)} style={styles.cell}>
-        <Text
-          style={[
-            styles.mark,
-            {color: second === 'X' ? colors.blue : colors.red},
-          ]}>
+        <Text style={[styles.mark, {color: second === 'X' ? colors.blue : colors.red}]}>
           {second}
         </Text>
       </Pressable>
       <Pressable onPress={() => onPress(2)} style={styles.cell}>
-        <Text
-          style={[
-            styles.mark,
-            {color: third === 'X' ? colors.blue : colors.red},
-          ]}>
+        <Text style={[styles.mark, {color: third === 'X' ? colors.blue : colors.red}]}>
           {third}
         </Text>
       </Pressable>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -109,7 +93,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '32%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
 
   cell: {
@@ -117,11 +101,11 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.white
   },
 
   mark: {
     fontSize: 30,
-    fontWeight: 'bold',
-  },
-});
+    fontWeight: 'bold'
+  }
+})

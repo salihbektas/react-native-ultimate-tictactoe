@@ -1,27 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-import Row from './src/components/Row';
-import colors from './src/colors';
-import Infotext from './src/components/Infotext';
-import {useAtom} from 'jotai';
-import {Initial, store, UltimateBoard} from './src/store';
+import {Dimensions, Image, Pressable, SafeAreaView, StyleSheet, View} from 'react-native'
+import Row from './src/components/Row'
+import colors from './src/colors'
+import Infotext from './src/components/Infotext'
+import {useAtom} from 'jotai'
+import {Initial, store, UltimateBoard} from './src/store'
 
-const {width} = Dimensions.get('screen');
+const {width} = Dimensions.get('screen')
 
 function App(): JSX.Element {
-  const [data, setData] = useAtom(store);
+  const [data, setData] = useAtom(store)
 
   function reset() {
     const initialBoard: UltimateBoard = [
@@ -33,16 +22,15 @@ function App(): JSX.Element {
       [['', '', '', '', '', '', '', '', ''], ''],
       [['', '', '', '', '', '', '', '', ''], ''],
       [['', '', '', '', '', '', '', '', ''], ''],
-      [['', '', '', '', '', '', '', '', ''], ''],
-    ];
+      [['', '', '', '', '', '', '', '', ''], '']
+    ]
 
-    const init: Initial = {board: initialBoard, turn: 'X', winner: ''};
-    setData(init);
+    const init: Initial = {board: initialBoard, turn: 'X', winner: ''}
+    setData(init)
   }
 
   return (
     <SafeAreaView style={styles.main}>
-      <StatusBar barStyle={'dark-content'} />
       <View style={styles.topside}>
         <Pressable onPress={reset}>
           <Image source={require('./assets/reset.png')} style={styles.reset} />
@@ -55,7 +43,7 @@ function App(): JSX.Element {
         <Row rowOrder={2} />
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -64,22 +52,22 @@ const styles = StyleSheet.create({
   topside: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-evenly'
   },
 
   reset: {
     tintColor: colors.white,
     resizeMode: 'contain',
     height: 45,
-    aspectRatio: 1,
+    aspectRatio: 1
   },
 
   board: {
     width: width,
     aspectRatio: 1,
     backgroundColor: colors.black,
-    justifyContent: 'space-between',
-  },
-});
+    justifyContent: 'space-between'
+  }
+})
 
-export default App;
+export default App

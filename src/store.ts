@@ -1,4 +1,4 @@
-import {atom} from 'jotai';
+import {atom} from 'jotai'
 
 const initialBoard: UltimateBoard = [
   [['', '', '', '', '', '', '', '', ''], ''],
@@ -9,14 +9,14 @@ const initialBoard: UltimateBoard = [
   [['', '', '', '', '', '', '', '', ''], ''],
   [['', '', '', '', '', '', '', '', ''], ''],
   [['', '', '', '', '', '', '', '', ''], ''],
-  [['', '', '', '', '', '', '', '', ''], ''],
-];
+  [['', '', '', '', '', '', '', '', ''], '']
+]
 
-const init: Initial = {board: initialBoard, turn: 'X', winner: ''};
+const init: Initial = {board: initialBoard, turn: 'X', winner: ''}
 
-export const store = atom(init);
+export const store = atom(init)
 
-type TileValue = 'X' | 'O' | '';
+type TileValue = 'X' | 'O' | ''
 
 type SubBoard = [
   TileValue,
@@ -27,8 +27,8 @@ type SubBoard = [
   TileValue,
   TileValue,
   TileValue,
-  TileValue,
-];
+  TileValue
+]
 
 export type UltimateBoard = [
   [SubBoard, TileValue],
@@ -39,11 +39,11 @@ export type UltimateBoard = [
   [SubBoard, TileValue],
   [SubBoard, TileValue],
   [SubBoard, TileValue],
-  [SubBoard, TileValue],
-];
+  [SubBoard, TileValue]
+]
 
 export type Initial = {
-  board: UltimateBoard;
-  turn: TileValue;
-  winner: TileValue;
-};
+  board: UltimateBoard
+  turn: TileValue
+  winner: TileValue
+}
