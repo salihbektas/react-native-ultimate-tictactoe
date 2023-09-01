@@ -31,11 +31,32 @@ export default function Subrow({
     return data.lastPlayed === subBoardOrder * 10 + subRowOrderOrder * 3 + order
   }
 
+  function isForcedSubBoard() {
+    if (
+      data.lastPlayed < 0 ||
+      data.board[data.lastPlayed % 10][1] !== '' ||
+      !data.board[data.lastPlayed % 10][0].some(tile => tile === '')
+    ) {
+      return false
+    }
+
+    return subBoardOrder === data.lastPlayed % 10
+  }
+
   function onPress(tileOrder: number) {
     if (
       data.board[subBoardOrder][0][subRowOrderOrder * 3 + tileOrder] !== '' ||
       data.board[subBoardOrder][1] !== '' ||
       data.winner !== ''
+    ) {
+      return
+    }
+
+    if (
+      data.lastPlayed >= 0 &&
+      data.board[data.lastPlayed % 10][1] === '' &&
+      data.board[data.lastPlayed % 10][0].some(tile => tile === '') &&
+      subBoardOrder !== data.lastPlayed % 10
     ) {
       return
     }
@@ -83,6 +104,10 @@ export default function Subrow({
               ? first === 'X'
                 ? colors.lightBlue
                 : colors.lightRed
+              : isForcedSubBoard()
+              ? data.turn === 'X'
+                ? colors.lightBlue
+                : colors.lightRed
               : colors.white
           }
         ]}>
@@ -99,6 +124,10 @@ export default function Subrow({
               ? second === 'X'
                 ? colors.lightBlue
                 : colors.lightRed
+              : isForcedSubBoard()
+              ? data.turn === 'X'
+                ? colors.lightBlue
+                : colors.lightRed
               : colors.white
           }
         ]}>
@@ -113,6 +142,10 @@ export default function Subrow({
           {
             backgroundColor: isLastPlayed(2)
               ? third === 'X'
+                ? colors.lightBlue
+                : colors.lightRed
+              : isForcedSubBoard()
+              ? data.turn === 'X'
                 ? colors.lightBlue
                 : colors.lightRed
               : colors.white
