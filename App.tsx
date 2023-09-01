@@ -25,7 +25,7 @@ function App(): JSX.Element {
       [['', '', '', '', '', '', '', '', ''], '']
     ]
 
-    const init: Initial = {board: initialBoard, turn: 'X', winner: ''}
+    const init: Initial = {board: initialBoard, turn: 'X', winner: '', lastPlayed: -1}
     setData(init)
   }
 

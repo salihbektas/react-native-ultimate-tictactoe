@@ -23,9 +23,13 @@ export default function Subrow({
 }) {
   const [data, setData] = useAtom(store)
 
-  let first = data.board[subBoardOrder][0][subRowOrderOrder * 3]
-  let second = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 1]
-  let third = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 2]
+  const first = data.board[subBoardOrder][0][subRowOrderOrder * 3]
+  const second = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 1]
+  const third = data.board[subBoardOrder][0][subRowOrderOrder * 3 + 2]
+
+  function isLastPlayed(order: number) {
+    return data.lastPlayed === subBoardOrder * 10 + subRowOrderOrder * 3 + order
+  }
 
   function onPress(tileOrder: number) {
     if (
@@ -39,6 +43,7 @@ export default function Subrow({
     const newData = {...data}
     newData.board[subBoardOrder][0][subRowOrderOrder * 3 + tileOrder] = data.turn
     newData.turn = data.turn === 'X' ? 'O' : 'X'
+    newData.lastPlayed = subBoardOrder * 10 + subRowOrderOrder * 3 + tileOrder
 
     calculateWinner(newData)
   }
@@ -69,17 +74,50 @@ export default function Subrow({
 
   return (
     <View style={styles.row}>
-      <Pressable onPress={() => onPress(0)} style={styles.cell}>
+      <Pressable
+        onPress={() => onPress(0)}
+        style={[
+          styles.cell,
+          {
+            backgroundColor: isLastPlayed(0)
+              ? first === 'X'
+                ? colors.lightBlue
+                : colors.lightRed
+              : colors.white
+          }
+        ]}>
         <Text style={[styles.mark, {color: first === 'X' ? colors.blue : colors.red}]}>
           {first}
         </Text>
       </Pressable>
-      <Pressable onPress={() => onPress(1)} style={styles.cell}>
+      <Pressable
+        onPress={() => onPress(1)}
+        style={[
+          styles.cell,
+          {
+            backgroundColor: isLastPlayed(1)
+              ? second === 'X'
+                ? colors.lightBlue
+                : colors.lightRed
+              : colors.white
+          }
+        ]}>
         <Text style={[styles.mark, {color: second === 'X' ? colors.blue : colors.red}]}>
           {second}
         </Text>
       </Pressable>
-      <Pressable onPress={() => onPress(2)} style={styles.cell}>
+      <Pressable
+        onPress={() => onPress(2)}
+        style={[
+          styles.cell,
+          {
+            backgroundColor: isLastPlayed(2)
+              ? third === 'X'
+                ? colors.lightBlue
+                : colors.lightRed
+              : colors.white
+          }
+        ]}>
         <Text style={[styles.mark, {color: third === 'X' ? colors.blue : colors.red}]}>
           {third}
         </Text>
@@ -100,8 +138,7 @@ const styles = StyleSheet.create({
     width: '32%',
     height: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.white
+    alignItems: 'center'
   },
 
   mark: {

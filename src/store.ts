@@ -12,7 +12,7 @@ const initialBoard: UltimateBoard = [
   [['', '', '', '', '', '', '', '', ''], '']
 ]
 
-const init: Initial = {board: initialBoard, turn: 'X', winner: ''}
+const init: Initial = {board: initialBoard, turn: 'X', winner: '', lastPlayed: -1}
 
 export const store = atom(init)
 
@@ -46,4 +46,5 @@ export type Initial = {
   board: UltimateBoard
   turn: TileValue
   winner: TileValue
+  lastPlayed: number
 }
