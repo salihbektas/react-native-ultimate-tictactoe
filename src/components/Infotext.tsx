@@ -4,7 +4,20 @@ import {store} from '../store'
 import colors from '../colors'
 
 export default function Infotext() {
-  const {winner, turn} = useAtomValue(store)
+  const {winner, turn, board} = useAtomValue(store)
+
+  function isDraw() {
+    if (winner !== '') return false
+
+    for (let i = 0; i < 9; ++i) {
+      if (board[i][1] === '')
+        for (let j = 0; j < 9; ++j) {
+          if (board[i][0][j] === '') return false
+        }
+    }
+
+    return true
+  }
 
   const winnerX = (
     <Text style={styles.text}>
@@ -32,7 +45,15 @@ export default function Infotext() {
 
   return (
     <Text style={styles.text}>
-      {winner === 'X' ? winnerX : winner === 'O' ? winnerO : turn === 'X' ? turnX : turnO}
+      {isDraw()
+        ? 'Draw'
+        : winner === 'X'
+        ? winnerX
+        : winner === 'O'
+        ? winnerO
+        : turn === 'X'
+        ? turnX
+        : turnO}
     </Text>
   )
 }
@@ -42,6 +63,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 40
   },
+
   x: {
     color: colors.blue
   },
